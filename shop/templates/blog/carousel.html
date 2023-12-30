@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- Website - www.codingnepalweb.com -->
+{% load static %}
+{% load gravatar %}
+{% load i18n %}
+
+{% comment %} {% gravatar_url user.email 150 %} {% endcomment %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Card Slider HTML CSS JavaScript | codingNepal</title>
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{% static 'Responsive/css/swiper-bundle.min.css' %}" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'Responsive/css/style.css' %}" />
+  </head>
+  <body>
+    <div class="container swiper">
+      <div class="slide-container">
+        <div class="card-wrapper swiper-wrapper">
+          
+          {% for article in object_list %}
+          <div class="card swiper-slide">
+            <div class="image-box">
+
+              <a href="{% url 'blog:detail_article' article.Slug %}">
+              <img src="{{article.Thumbnail.url}}" width="110" alt="">
+              
+              </img>
+            </div>
+            <div class="profile-details">
+
+              <img src="{% gravatar_url user.email 150 %}" class="img-circle elevation-2" alt="{{user.email}}">
+
+              <div class="name-job">
+
+                <h4 class="job"><a href="{% url 'account:article-update' article.pk %}">
+                  {% comment %} {% translate article.Title %} {% endcomment %}
+                  {{article.Title}}
+                  </a></h4>
+                <h3 class="name">
+                  {% comment %} {% translate article.author.get_full_name %} {% endcomment %}
+                {{article.author.get_full_name}}
+              </h3>
+
+              </div>
+              </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="swiper-button-next swiper-navBtn"></div>
+      <div class="swiper-button-prev swiper-navBtn"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <script src="{% static 'Responsive/js/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'Responsive/js/script.js' %}"></script>
+  </body>
+</html>

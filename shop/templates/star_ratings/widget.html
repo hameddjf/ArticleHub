@@ -1,0 +1,20 @@
+{% extends "star_ratings/widget_base.html" %}
+{% load i18n %}
+
+{% block rating_detail %}
+
+{% if not user.is_authenticated %}
+
+<div class="tooltip">
+    <small>
+        {% trans "برای رای دادن لطفا" %}
+        <a href="{% url 'login' %}" style="text-decoration: underline;"><strong>{% trans "وارد" %}</strong></a>
+        {% trans "شوید" %}
+        <span class="tooltiptext">{% trans "Tooltips for rating" %}</span>
+    </small>
+</div>
+
+
+{% endif %}
+
+{% endblock %}

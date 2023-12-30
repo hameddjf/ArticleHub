@@ -1,0 +1,40 @@
+{% load i18n %}
+
+
+<section id="demos" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <div class="row">
+      <div class="large-12 columns">
+        <!-- الگوی دیو کاروسل -->
+        <div class="owl-carousel owl-theme">
+          {% for article in object_list %}
+            <div class="item">
+              <h4>
+                {% comment %}  {% translate article.Title %} {% endcomment %}
+                <img src="{{article.Thumbnail.url}}" alt="{{article.Title}}">
+              </h4>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- لود کردن کتابخانه JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- لود کردن پلاگین Owl Carousel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  
+  <!-- اسکریپت Owl Carousel -->
+  <script>
+    $(document).ready(function() {
+      var owl = $('.owl-carousel');
+      owl.owlCarousel({
+        items: 4,
+        loop: true,
+        margin: 10,
+        autoplay: true,
+        autoplayTimeout: 1000,
+        autoplayHoverPause: true
+      });
+    })
+  </script>

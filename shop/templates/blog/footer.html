@@ -1,0 +1,40 @@
+<html lang="en">
+{% load i18n %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Document" %}</title>
+</head>
+<body>
+    <footer>
+        <div class="container-fluid bg-dark text-white py-3 text-center">
+          <h1 style="font-size: 1.7rem;">{% trans "My Django Blog 2023" %}&copy;</h1>
+        </div>
+        <div class="container-fluid bg-dark text-white py-3">
+          <div class="row">
+            <div class="col-md-12">
+              <p class="container-fluid bg-dark text-white py-3 text-center">{% trans 'If you have any questions or suggestions, you can contact us' %} . </p>
+              <div class="container-fluid col-lg-6 text-center">
+                <ul class="footer-social-icons">
+                  <a href="#!"><i class="fab fa-twitter" style="font-size: 30px; color: #1DA1F2; margin-right: 10px;"></i></a>
+                  <a href="#!"><i class="fab fa-facebook-f" style="font-size: 30px; color: #1877F2; margin-right: 10px;"></i></a>
+                  <a href="#!"><i class="fab fa-github" style="font-size: 30px; color: #fff; margin-right: 10px;"></i></a>
+                  <a href="#!"><i class="fab fa-instagram" style="font-size: 30px; color: #C13584; margin-right: 10px;"></i></a>
+                  <a href="#!"><i class="fab fa-telegram" style="font-size: 30px; color: #0088cc; margin-right: 10px;"></i></a>
+                </ul>
+              </div>
+              <p class="container-fluid bg-dark text-white py-3 text-center">{% trans "Email" %}: hameddjf33@gmail.com</p>
+            </div>    
+          </div>
+        </div>
+    </footer>
+    <style>
+        footer {
+            padding-top: 10%;
+            padding-bottom: 0rem;
+        }
+    </style>
+
+</body>
+</html>

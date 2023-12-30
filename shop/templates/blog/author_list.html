@@ -1,0 +1,19 @@
+{% extends 'blog/list.html' %}
+{% load i18n %}
+
+
+{% block header %}
+            {% comment %} header {% endcomment %}
+            {% comment %} {% translate author.get_full_name %} {% endcomment %}
+            <h3 class="alert alert-primary text-center">{% trans 'Category' %}: {{author.get_full_name}}</h3>
+{% endblock header %}
+
+
+
+{% block previous_page_url %}
+    {% url 'blog:author' author.username page_obj.previous_page_number%}
+{% endblock previous_page_url %}
+
+{% block next_page_url %}
+    {% url 'blog:author' author.username  page_obj.next_page_number%}
+{% endblock next_page_url %}

@@ -1,0 +1,119 @@
+{% load i18n %}
+{% load static %}
+<html lang="en">
+
+<span class="line-button">
+  {% if user.is_authenticated %}
+  <button type="button" class="navbar-toggler" data-toggle="collapse" >
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-nav ml-auto group">
+      <a href="#" class="nav-item nav-link notifications"><i class="fas fa-bell text-white"></i><span class="badge">1</span></a>
+      <a href="#" class="nav-item nav-link messages"><i class="fas fa-envelope text-white"></i><span class="badge">10</span></a>
+      <div class="nav-item dropdown">
+          <a href="#" data-toggle="dropdown" class="nav-link  user-action">
+              <link rel="icon" type="image/png" href="{% static 'registration/login/images/user-panel.png' %}" />
+              {% comment %} {% translate user.get_full_name %} {% endcomment %}
+              <span class="text-white" >{{ user.username }}</span>
+              <b class="caret"></b>
+          </a>         
+          <div class="dropdown-menu">
+              <a href="{% url 'account:profile' %}" class="dropdown-item"> {% trans 'Profile' %} <i class="fas fa-user mr-2 align-right"></i></a>
+              <a href="{% url 'account:home' %}" class="dropdown-item">{% trans 'User-panel' %}<i class="fas fa-sliders-h mr-2 align-right"></i></a>
+              <div class="dropdown-divider"></div>
+              <a class="nav-link align-right" data-widget="control-sidebar" data-slide="true" href="{% url 'logout' %}"> {% trans 'Logout' %} <i class="fas fa-sign-out-alt mr-2 text-black align-right"></i></a>
+          </div>
+      </div>
+  </div>
+            {% elif not user.is_authenticated %}
+            <div class="navbar-nav ml-auto">
+                <a href="{% url 'signup' %}" class="nav-link btn btn-primary sign-up-btn">{% trans 'Sign up' %}</a>
+                <div class="nav-item mt-2">
+                  <a href="{% url 'login' %}" class="nav-link text-white">
+                    <span style="background-color: #573b3b4a; padding: 0 10px; margin-left: auto;">
+                        {% trans 'Login' %}
+                    </span>
+                </a>
+                </div>      
+            </div>
+        {% endif %}
+        <style>
+          .group{
+            background-color: rgb(0 0 0 / 30%);
+            border-radius: 32px;
+
+          }
+          .login-link {
+            padding: 0 0px;
+            margin-left: auto;
+          }
+    
+          .navbar .sign-up-btn {
+            min-width: 120px;
+            max-height: 36px;
+            margin-right: -110px;
+          }
+    
+          .dropdown-menu.show {
+            display: flex !important;
+          }
+    
+          @media (min-width: 992px){
+            .navbar-expand-lg .navbar-nav .dropdown-menu {
+              position: absolute;
+              border-radius: 32px;
+              border-top-width: thick;
+              height: 55px;
+            }
+          }
+     
+          .line-button {
+            display: inline-block;
+            color: #333333;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+            box-shadow: none;
+            border-radius: 32px;
+          }
+          
+          .line-button a {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          .line-button a .icon {
+            margin-right: 3px;
+            transition: transform 0.3s;
+          }
+          
+          .line-button a:hover,
+          .line-button a:focus {
+            background-color: #eaeaea;
+            border-color: #777777;
+            color: #222222;
+            border-radius: 32px;
+          }
+          
+          .line-button:hover a .icon,
+          .line-button:focus a .icon {
+            transform: rotate(90deg);
+          }
+          
+          .container {
+            max-width: 800px;
+          }
+
+          *{
+            font-size: initial;
+          }
+          
+    </style>
+      <script>
+        $(document).ready(function() {
+            $(".line-button a").hover(function() {
+              $(this).find(".icon").toggleClass("rotate");
+            });
+          });
+        </script>
+  </span>

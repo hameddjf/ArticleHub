@@ -1,0 +1,18 @@
+{% extends 'blog/list.html' %}
+{% load i18n %}
+
+
+{% block header %}
+            {% comment %} header {% endcomment %}
+            <h3 class="alert alert-primary text-center">{% trans 'Search' %} : {{search}}</h3>
+{% endblock header %}
+
+
+
+{% block previous_page_url %}
+    {% url 'blog:search' page_obj.previous_page_number%}?q={{search}}
+{% endblock previous_page_url %}
+
+{% block next_page_url %}
+    {% url 'blog:search'  page_obj.next_page_number%}?q={{search}}
+{% endblock next_page_url %}

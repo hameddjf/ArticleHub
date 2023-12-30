@@ -1,0 +1,169 @@
+@font-face {
+    font-family: Sahel;
+    src: url('Sahel.eot');
+    src: url('Sahel.eot?#iefix') format('embedded-opentype'),
+        url('Sahel.woff2') format('woff2'),
+        url('Sahel.woff') format('woff'),
+        url('Sahel.ttf') format('truetype');
+    font-weight: normal;
+}
+
+body {
+    direction: rtl;
+    text-align: right;
+    font-family: "Sahel";
+    font-size: 18px;
+    text-align: justify;
+    text-align-last: auto;
+}
+
+.navbar-nav {
+    margin-left: initial !important;
+    margin-right: auto;
+    font-family: "Sahel";
+}
+
+.post-meta {
+    text-align: left;
+}
+
+.pager-button {
+    float: left !important;
+    margin-left: 25%;
+}
+
+.btn {
+    letter-spacing: 0.0675em;
+    margin: 10px;
+}
+
+header.masthead .page-heading h1,
+header.masthead .page-heading .h1,
+header.masthead .site-heading h1,
+header.masthead .site-heading .h1 {
+    font-size: 4rem;
+}
+
+.post-title {
+    font-size: 1.7rem !important;
+    font-family: "Sahel";
+}
+
+.post-subtitle {
+    font-weight: 100;
+    margin-bottom: 1.625rem;
+    font-size: 1rem !important;
+    font-style: italic;
+    font-family: 'Sahel';
+}
+
+.button {
+    background-color: #41464b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+
+
+
+
+.nav ul {
+    padding-right: 0;
+}
+.nav ul li {
+    border-bottom: none;
+    height: 86px;
+    line-height: 86px;
+    font-size: 14px;
+    display: inline-block;
+    /* float:left; */
+    margin: 0 auto;
+    position: relative;
+
+}
+.nav ul li a {
+    text-decoration: none;
+    color: #000000;
+    display:block;
+    transition: .3s background-color;
+    padding: 0 24px;
+    width:100px; /* this is the width of the menu items */
+    line-height:45px; /* this is the hieght of the menu items */
+
+}
+.nav ul li a:hover {
+    background-color: rgb(236, 59, 183);
+    color:#a2e731;
+    /* display:block; */
+
+}
+.nav a {
+    border-bottom: none; 
+}
+.nav li ul {
+    position: absolute;
+    display: none;
+    width: inherit;
+    top: 100%;
+    left: 0;
+    
+    
+}
+.nav li:hover > ul {
+    display: block;
+    
+}
+.nav ul li ul li {
+    display: block;
+    float: none !important;
+    height: auto;
+    line-height: 34px;
+    /* position: relative; */
+    
+}
+.nav ul li ul li ul {
+    position: absolute;
+    right: -100%;
+    top: 0;
+    display: none !important;
+    
+}
+.nav ul > li > ul > li:hover > ul {
+    display: block !important;
+}
+.nav ul > li > ul > li > ul > li:hover > ul {
+    display: block !important;
+}
+
+
+/*  */
+.card-body {
+    color: var(--bs-card-color);
+}
+
+
+element.style {
+}
+.flex-column {
+    flex-direction: column !important;
+}
+.d-flex {
+    display: flex !important;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+user agent stylesheet
+form {
+    display: block;
+    margin-top: 0em;
+}
+
+
+
+
+
+
+
