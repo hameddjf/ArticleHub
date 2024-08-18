@@ -5,7 +5,7 @@
 {% load base_tags %}
 {% load i18n %}
 {% block main %}
-list.html
+{% comment %} list.html {% endcomment %}
 <!-- Main Content-->
 <header class="masthead" style="background-image: url('{% static 'blog/assets/img/1.jpg' %}')">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
@@ -45,7 +45,8 @@ list.html
         border: 1px solid #ddd;
         padding: 15px;
         border-radius: 5px;
-        margin-bottom: 20px;
+        margin-bottom: -5%;
+        margin-top: 15%;
         text-align: right;
         box-shadow: -5px 7px #ddd; 
     }
@@ -62,48 +63,45 @@ list.html
 
 
         {% comment %} category from views/url file ... get arguman category(, related_name = 'articles') of Article models {% endcomment %}
-        {% for article in object_list %} {%comment%}filter(Status='p' فیلتر اینجا قراره مقالات منتشر شدرو فقط نمایش بده /// اینجا فیلتر کار نمیکنه
-        {% comment %} گرفتن تمام مقالات {% endcomment %}
-            <!-- Post preview-->
-
-            <div class="post-preview">
-                <a href="{% url 'blog:detail_article' article.Slug %}">
-                    <h2 class="post-title text-right"> 
-                        {{ article.Title }} 
-                        {% if article.is_spacial %}
-                            <span class="badge badge-danger" style="font-size: 13px">{% trans '🌟 Special Article' %} </span>
-                        {% endif %}
-                    </h2>
-                    <div style="text-align: right; width: 150px;">{% ratings article %}</div>
-                    <h3 class="post-subtitle">{{article.Description|striptags|truncatewords:30}}.</h3>
-                </a>
-                <p class="post-meta">
+        {% for article in object_list %}
+          <div class="post-preview">
+              <div class="post-image">
+                  <img src="{{ article.Thumbnail.url }}" alt="{{ article.Title }}" class="img-fluid rounded-top" />
+              </div>
+              <a href="{% url 'blog:detail_article' article.Slug %}">
+                  <h2 class="post-title text-right"> 
+                      {{ article.Title }} 
+                      {% if article.is_spacial %}
+                          <span class="badge badge-danger" style="font-size: 13px">{% trans '🌟 Special Article' %}</span>
+                      {% endif %}
+                  </h2>
+                  <div style="text-align: right; width: 150px;">{% ratings article %}</div>
+                  <h3 class="post-subtitle">{{ article.Description|striptags|truncatewords:30 }}.</h3>
+              </a>
+              <p class="post-meta">
                   {% trans 'Written by' %}
-                    <span class="author-name">
-                      <a href="{% url 'blog:author' article.author %}">{{article.author.get_full_name}}</a>
-                    </span>{% trans 'In' %}
-                    <span class="publish-date date-highlight">{{article.Publish|naturaltime}}</span>
-                  </p>
-            </div>
-            <div>
-    {% comment %} article from url.py and Category is the one objects of Article from models ......Category going to Category in models{% endcomment %}
-                {% for cat in article.Category.active %}  
-                    <a href="{% url 'blog:category' cat.slugs %}">#{{cat.titles}}</a>
-                {% endfor cat%} 
-                <div style="text-align: right;">{% trans 'Visits' %}: {{ article.hits.count }}</div>
-            </div> 
-            <hr>
-            {% comment %} زمانی ک حلقه بدون نتیجه یا خالیه میتونیم از این قابلیت استفاده کنیم برای نمایش دادن چیزی {% endcomment %}
-        {% empty %}
-            <p>
-              {% trans 'Sorry, there is no content to display.'%} <br>
-              {% trans 'Please try again with other options.'%}
-                <form class='from-inline mt-3' action='{% url 'blog:search' %}'>
-                    {% comment %} q = query {% endcomment %}
-                    <input type='text' name='q' class='from-control' placeholder={% trans "Text search" %}>
-                </form>
-            </p>
-        {% endfor article %}
+                  <span class="author-name">
+                      <a href="{% url 'blog:author' article.author %}">{{ article.author.get_full_name }}</a>
+                  </span>{% trans 'In' %}
+                  <span class="publish-date date-highlight">{{ article.Publish|naturaltime }}</span>
+              </p>
+              <div>
+                  {% for cat in article.Category.active %}
+                      <a href="{% url 'blog:category' cat.slugs %}">#{{ cat.titles }}</a>
+                  {% endfor cat %} 
+                  <div style="text-align: right;">{% trans 'Visits' %}: {{ article.hits.count }}</div>
+              </div>
+          </div>
+          <hr>
+      {% empty %}
+          <p>
+              {% trans 'Sorry, there is no content to display.' %}<br>
+              {% trans 'Please try again with other options.' %}
+              <form class='from-inline mt-3' action='{% url 'blog:search' %}'>
+                  <input type='text' name='q' class='from-control' placeholder={% trans "Text search" %}>
+              </form>
+          </p>
+      {% endfor article %}
             <!-- Pager-->
             {% if is_paginated %}
             <div class="d-flex justify-content-end mb-4 pager-button" id="page-navigation">
@@ -127,6 +125,7 @@ list.html
               <a class="btn btn-primary text-uppercase float-right" href="{% block previous_page_url %}{% endblock previous_page_url %}">&rarr;{% trans 'Previous' %} </a>
             {% endif %}
                     <style>
+                      
                         .mb-4, .my-4 {
                             margin-bottom: 15rem!important;
                         }
@@ -138,7 +137,6 @@ list.html
                             background-color: #f5f5f5;
                             padding: 10px;
                             border-radius: 5px;
-                            width:900%;
                           }
                           
                           .wp-pagenavi {

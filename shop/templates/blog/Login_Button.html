@@ -20,8 +20,15 @@
           <div class="dropdown-menu">
               <a href="{% url 'account:profile' %}" class="dropdown-item"> {% trans 'Profile' %} <i class="fas fa-user mr-2 align-right"></i></a>
               <a href="{% url 'account:home' %}" class="dropdown-item">{% trans 'User-panel' %}<i class="fas fa-sliders-h mr-2 align-right"></i></a>
-              <div class="dropdown-divider"></div>
-              <a class="nav-link align-right" data-widget="control-sidebar" data-slide="true" href="{% url 'logout' %}"> {% trans 'Logout' %} <i class="fas fa-sign-out-alt mr-2 text-black align-right"></i></a>
+              <form class='dropdown' method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="nav-link align-right logout-btn">
+                  <span class="logout-text">
+                    {% trans 'Logout' %}
+                    <i class="fas fa-sign-out-alt mr-2 text-black"></i>
+                  </span>
+                </button>
+              </form>
           </div>
       </div>
   </div>
@@ -38,6 +45,55 @@
             </div>
         {% endif %}
         <style>
+
+          .nav ul {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+          }
+          
+          .nav ul li {
+            margin-left: 20px;
+          }
+          
+          .logout-btn {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            padding: 0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+          }
+          
+          .logout-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            color: black;
+            margin-top: -2px;
+          }
+
+          
+          
+          .logout-btn.hover:hover {
+            color: #666;
+          }
+          .dropdown button:hover,
+          .dropdown button:focus {
+            background-color: #eaeaea;
+            border-color: #777777;
+            color: #222222;
+            border-radius: 32px;
+          }
+
+
           .group{
             background-color: rgb(0 0 0 / 30%);
             border-radius: 32px;

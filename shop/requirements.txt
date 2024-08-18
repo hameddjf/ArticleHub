@@ -16,8 +16,8 @@ isodate==0.6.1
 lxml==4.9.3
 Pillow==10.0.0
 platformdirs==3.10.0
-psycopg2==2.9.7
 pycryptodome==3.18.0
+psycopg2==2.9.9
 pytz==2023.3
 requests==2.31.0
 requests-file==1.5.1

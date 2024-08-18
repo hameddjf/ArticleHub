@@ -63,10 +63,28 @@ base
     <ul class="navbar-nav mr-auto-navbav">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="{% url 'logout' %}">
-          {% comment %} <a data-widget="control-sidebar" data-slide="true" href="/login"> {% endcomment %}
-          {% comment %} icon sign out {% endcomment %}
-          <i class="fas fa-sign-out-alt" ></i> 
+        <form class='dropdown' method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="nav-link align-right logout-btn">
+            <span class="logout-text">
+              <i class="fas fa-sign-out-alt mr-2 text-black"></i>
+            </span>
+          </button>
+        </form>
+        <style>
+          .logout-btn {
+            border: none;
+          }
+
+          .layout-fixed .main-sidebar {
+            bottom: 0;
+            float: none;
+            height: 100vh;
+            left: 0px;
+            position: absolute;
+            top: 0;
+        }
+        </style>
         </a>
       </li>
     </ul>

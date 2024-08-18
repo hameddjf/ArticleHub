@@ -4,7 +4,7 @@
 <div class="collapse navbar-collapse nav" id="navbarResponsive">
     <ul class="navbar-nav ms-auto py-4 py-lg-0">
         <li class="nav-item">
-            <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:home' %}">{% trans 'Home' %}</a>   
+            {% comment %} <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:home' %}">{% trans 'Home' %}</a>    {% endcomment %}
         </li>
         {%for cat in category%} 
             {%if cat.parent == None%}
@@ -56,6 +56,8 @@
             color: #ff5722;
             border-bottom-color: #ff5722;
         }
+
+
     </style>
     
     <div class="language-switcher">
