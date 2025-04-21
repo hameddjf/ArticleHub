@@ -1,175 +1,401 @@
 {% load i18n %}
 {% load static %}
 <html lang="en">
-
-<span class="line-button">
-  {% if user.is_authenticated %}
-  <button type="button" class="navbar-toggler" data-toggle="collapse" >
-      <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="navbar-nav ml-auto group">
-      <a href="#" class="nav-item nav-link notifications"><i class="fas fa-bell text-white"></i><span class="badge">1</span></a>
-      <a href="#" class="nav-item nav-link messages"><i class="fas fa-envelope text-white"></i><span class="badge">10</span></a>
-      <div class="nav-item dropdown">
-          <a href="#" data-toggle="dropdown" class="nav-link  user-action">
-              <link rel="icon" type="image/png" href="{% static 'registration/login/images/user-panel.png' %}" />
-              {% comment %} {% translate user.get_full_name %} {% endcomment %}
-              <span class="text-white" >{{ user.username }}</span>
-              <b class="caret"></b>
-          </a>         
-          <div class="dropdown-menu">
-              <a href="{% url 'account:profile' %}" class="dropdown-item"> {% trans 'Profile' %} <i class="fas fa-user mr-2 align-right"></i></a>
-              <a href="{% url 'account:home' %}" class="dropdown-item">{% trans 'User-panel' %}<i class="fas fa-sliders-h mr-2 align-right"></i></a>
-              <form class='dropdown' method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit" class="nav-link align-right logout-btn">
-                  <span class="logout-text">
-                    {% trans 'Logout' %}
-                    <i class="fas fa-sign-out-alt mr-2 text-black"></i>
-                  </span>
-                </button>
-              </form>
-          </div>
+  <div class="user-nav-container">
+    {% if user.is_authenticated %}
+    <button type="button" class="menu-toggle" id="menuToggle">
+      <span class="menu-icon"></span>
+    </button>
+    <div class="user-nav-items">
+      <div class="notification-group">
+        <a href="#" class="nav-btn notification-btn">
+          <i class="fas fa-bell"></i>
+          <span class="badge-count">1</span>
+        </a>
+        <a href="#" class="nav-btn message-btn">
+          <i class="fas fa-envelope"></i>
+          <span class="badge-count">10</span>
+        </a>
       </div>
-  </div>
-            {% elif not user.is_authenticated %}
-            <div class="navbar-nav ml-auto">
-                <a href="{% url 'signup' %}" class="nav-link btn btn-primary sign-up-btn">{% trans 'Sign up' %}</a>
-                <div class="nav-item mt-2">
-                  <a href="{% url 'login' %}" class="nav-link text-white">
-                    <span style="background-color: #573b3b4a; padding: 0 10px; margin-left: auto;">
-                        {% trans 'Login' %}
-                    </span>
-                </a>
-                </div>      
-            </div>
-        {% endif %}
-        <style>
-
-          .nav ul {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-          }
-          
-          .nav ul li {
-            margin-left: 20px;
-          }
-          
-          .logout-btn {
-            background: none;
-            border: none;
-            color: inherit;
-            cursor: pointer;
-            padding: 0;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            transition: color 0.3s ease;
-          }
-          
-          .logout-text {
-            font-size: 1.1em;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            color: black;
-            margin-top: -2px;
-          }
-
-          
-          
-          .logout-btn.hover:hover {
-            color: #666;
-          }
-          .dropdown button:hover,
-          .dropdown button:focus {
-            background-color: #eaeaea;
-            border-color: #777777;
-            color: #222222;
-            border-radius: 32px;
-          }
-
-
-          .group{
-            background-color: rgb(0 0 0 / 30%);
-            border-radius: 32px;
-
-          }
-          .login-link {
-            padding: 0 0px;
-            margin-left: auto;
-          }
+      <div class="user-dropdown">
+        <a href="#" class="user-dropdown-toggle" id="userDropdown">
+          <span class="username">{{ user.username }}</span>
+          <i class="fas fa-chevron-down"></i>
+        </a>         
+        <div class="dropdown-panel" id="userDropdownPanel">
+          <a href="{% url 'account:profile' %}" class="dropdown-item">
+            <i class="fas fa-user"></i>
+            <span>{% trans 'Profile' %}</span>
+          </a>
+          <a href="{% url 'account:home' %}" class="dropdown-item">
+            <i class="fas fa-sliders-h"></i>
+            <span>{% trans 'User-panel' %}</span>
+          </a>
+          <form method="post" action="{% url 'logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="dropdown-item logout-btn">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>{% trans 'Logout' %}</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% elif not user.is_authenticated %}
+      <div class="auth-buttons">
+        <a href="{% url 'signup' %}" class="signup-btn">{% trans 'Sign up' %}</a>
+        <a href="{% url 'login' %}" class="login-btn">{% trans 'Login' %}</a>
+      </div>
+    {% endif %}
     
-          .navbar .sign-up-btn {
-            min-width: 120px;
-            max-height: 36px;
-            margin-right: -110px;
-          }
-    
-          .dropdown-menu.show {
-            display: flex !important;
-          }
-    
-          @media (min-width: 992px){
-            .navbar-expand-lg .navbar-nav .dropdown-menu {
-              position: absolute;
-              border-radius: 32px;
-              border-top-width: thick;
-              height: 55px;
-            }
-          }
-     
-          .line-button {
-            display: inline-block;
-            color: #333333;
-            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-            box-shadow: none;
-            border-radius: 32px;
-          }
-          
-          .line-button a {
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-          
-          .line-button a .icon {
-            margin-right: 3px;
-            transition: transform 0.3s;
-          }
-          
-          .line-button a:hover,
-          .line-button a:focus {
-            background-color: #eaeaea;
-            border-color: #777777;
-            color: #222222;
-            border-radius: 32px;
-          }
-          
-          .line-button:hover a .icon,
-          .line-button:focus a .icon {
-            transform: rotate(90deg);
-          }
-          
-          .container {
-            max-width: 800px;
-          }
-
-          *{
-            font-size: initial;
-          }
-          
+    <style>
+      /* متغیرهای رنگ و سایز */
+      :root {
+        --primary-color: #3a86ff;
+        --primary-hover: #2a75ee;
+        --secondary-color: #f5f5f5;
+        --text-color: #333;
+        --text-light: #fff;
+        --border-radius: 24px;
+        --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+  
+      /* استایل‌های اصلی */
+      .user-nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 8px 16px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      }
+  
+      /* استایل‌های مشترک */
+      .nav-btn, .dropdown-item, .user-dropdown-toggle, .auth-buttons a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: var(--transition);
+        border-radius: var(--border-radius);
+        padding: 8px 16px;
+        font-weight: 500;
+        font-size: 14px;
+      }
+  
+      /* استایل‌های کاربر وارد شده */
+      .user-nav-items {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: var(--border-radius);
+        padding: 6px;
+      }
+  
+      .notification-group {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+  
+      .nav-btn {
+        position: relative;
+        color: var(--text-light);
+        padding: 8px 12px;
+      }
+  
+      .nav-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+  
+      .badge-count {
+        position: absolute;
+        top: 0;
+        right: 2px;
+        background-color: #ff3860;
+        color: white;
+        font-size: 10px;
+        font-weight: bold;
+        height: 16px;
+        width: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+  
+      /* دراپ داون کاربر */
+      .user-dropdown {
+        position: relative;
+      }
+  
+      .user-dropdown-toggle {
+        color: var(--text-light);
+        cursor: pointer;
+        padding: 8px 16px;
+      }
+  
+      .user-dropdown-toggle:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+  
+      .username {
+        max-width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+  
+      .dropdown-panel {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        min-width: 180px;
+        z-index: 1000;
+        margin-top: 8px;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+      }
+  
+      .dropdown-panel.active {
+        display: flex;
+      }
+  
+      .dropdown-item {
+        color: var(--text-color);
+        padding: 12px 16px;
+        justify-content: flex-start;
+      }
+  
+      .dropdown-item i {
+        width: 16px;
+        text-align: center;
+        color: var(--primary-color);
+      }
+  
+      .dropdown-item:hover {
+        background-color: var(--secondary-color);
+      }
+  
+      .logout-form {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      }
+  
+      .logout-btn {
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #e74c3c;
+        justify-content: flex-start;
+      }
+  
+      .logout-btn i {
+        color: #e74c3c;
+      }
+  
+      .logout-btn:hover {
+        background-color: rgba(231, 76, 60, 0.1);
+      }
+  
+      /* استایل‌های کاربر وارد نشده */
+      .auth-buttons {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+  
+      .signup-btn {
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: var(--border-radius);
+        padding: 8px 20px;
+        font-weight: 600;
+        box-shadow: var(--shadow);
+      }
+  
+      .signup-btn:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-1px);
+      }
+  
+      .login-btn {
+        color: var(--text-light);
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: var(--border-radius);
+        padding: 8px 20px;
+      }
+  
+      .login-btn:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+      }
+  
+      /* دکمه منو موبایل */
+      .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+  
+      .menu-icon, .menu-icon:before, .menu-icon:after {
+        position: absolute;
+        width: 20px;
+        height: 2px;
+        background-color: white;
+        transition: var(--transition);
+      }
+  
+      .menu-icon {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+  
+      .menu-icon:before, .menu-icon:after {
+        content: '';
+        display: block;
+      }
+  
+      .menu-icon:before {
+        top: -6px;
+      }
+  
+      .menu-icon:after {
+        bottom: -6px;
+      }
+  
+      /* ریسپانسیو */
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: block;
+          margin-right: 12px;
+        }
+  
+        .user-nav-items {
+          position: fixed;
+          top: 0;
+          right: -260px;
+          bottom: 0;
+          width: 250px;
+          background-color: #222;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+          gap: 12px;
+          padding: 24px 16px;
+          z-index: 1001;
+          transition: right 0.3s ease;
+          box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+          border-radius: 0;
+        }
+  
+        .user-nav-items.active {
+          right: 0;
+        }
+  
+        .notification-group {
+          width: 100%;
+          justify-content: space-around;
+          padding: 12px 0;
+        }
+  
+        .user-dropdown {
+          width: 100%;
+        }
+  
+        .user-dropdown-toggle {
+          width: 100%;
+          border-radius: 12px;
+          background-color: rgba(255, 255, 255, 0.05);
+          justify-content: space-between;
+        }
+  
+        .dropdown-panel {
+          position: relative;
+          width: 100%;
+          margin-top: 4px;
+        }
+  
+        .auth-buttons {
+          flex-direction: column;
+          gap: 8px;
+          width: 100%;
+        }
+  
+        .auth-buttons a {
+          width: 100%;
+          text-align: center;
+          justify-content: center;
+        }
+      }
     </style>
-      <script>
-        $(document).ready(function() {
-            $(".line-button a").hover(function() {
-              $(this).find(".icon").toggleClass("rotate");
-            });
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // تاگل منوی کاربر
+        const userDropdown = document.getElementById('userDropdown');
+        const userDropdownPanel = document.getElementById('userDropdownPanel');
+        
+        if (userDropdown && userDropdownPanel) {
+          userDropdown.addEventListener('click', function(e) {
+            e.preventDefault();
+            userDropdownPanel.classList.toggle('active');
           });
-        </script>
-  </span>
+          
+          // بستن منو با کلیک بیرون از آن
+          document.addEventListener('click', function(e) {
+            if (!userDropdown.contains(e.target) && !userDropdownPanel.contains(e.target)) {
+              userDropdownPanel.classList.remove('active');
+            }
+          });
+        }
+        
+        // تاگل منوی موبایل
+        const menuToggle = document.getElementById('menuToggle');
+        const userNavItems = document.querySelector('.user-nav-items');
+        
+        if (menuToggle && userNavItems) {
+          menuToggle.addEventListener('click', function() {
+            userNavItems.classList.toggle('active');
+            
+            // انیمیشن آیکون منو
+            const menuIcon = menuToggle.querySelector('.menu-icon');
+            if (userNavItems.classList.contains('active')) {
+              menuIcon.style.transform = 'translate(-50%, -50%) rotate(45deg)';
+              menuIcon.style.background = 'transparent';
+              
+              const before = window.getComputedStyle(
+                menuIcon, ':before'
+              );
+              const after = window.getComputedStyle(
+                menuIcon, ':after'
+              );
+              
+              menuIcon.style.setProperty('--before-transform', 'rotate(90deg)');
+              menuIcon.style.setProperty('--after-transform', 'rotate(0)');
+            } else {
+              menuIcon.style.transform = 'translate(-50%, -50%) rotate(0)';
+              menuIcon.style.background = 'white';
+              
+              menuIcon.style.setProperty('--before-transform', 'rotate(0)');
+              menuIcon.style.setProperty('--after-transform', 'rotate(0)');
+            }
+          });
+        }
+      });
+    </script>
+  </div>

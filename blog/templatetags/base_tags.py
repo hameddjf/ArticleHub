@@ -2,11 +2,12 @@ from ..models import Category
 from django import template
 
 from ..models import Article, Category
-from django.db.models import Count , Q
 from datetime import datetime , timedelta
 
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import FloatField
+from django.db.models import Count , Q
+from django.utils.translation import gettext as _
 
 
 register = template.Library()
@@ -26,7 +27,7 @@ def popular_article():
     #تا ن که ازش استفاده میکنیم تا نتایجو به فیلتر بده Q object ی کوئری هس که عملیات فیلتر رو انجام میده... و برای اجرای این کوئری از ی ابجکتی به نام articlehits__created = last_month 
         'hits' , filter=Q(articlehits__Created__gt = last_month))).order_by( # وقتی دوتا اندرلاین گزاشتیم اصطلاحا لوک اپه ... یعنی از ی تیبل بتونیم از تیبلای دیگه استفاده کنیم  lookup
             '-count' , 'Publish')[:2], # اطلاعات بر اساس کانت مرتب کن .. مقاله با بازدید بیشتر بالاتر... یا مقاله جدیدتر بالاتر.. حداکثر ۵ تا مقالرو نمایش بده
-            'Title':"مقالات پر بازدید ماه"
+            'Title':_("Most Viewed Articles of the Month")
         }
 
 @register.inclusion_tag("blog/partials/sidebar.html")
@@ -37,7 +38,7 @@ def Hot_article():
         #  اپ کامنت..فیلد پوستد که داره مربوط به تاریخ کامنت گزاشتن و کانتنت تایپ که مربوط ب ایدی مدلمون هستش که ایدی مدل ارتیکلمون برابر ۷ هستش ولی متغیری تعریف میکنیم برای گرفتن ایدیش که بهتره
         'comments' , filter=Q(comments__posted__gt = last_month) and Q(comments__content_type_id = content_type_id))).order_by( 
             '-count' , 'Publish')[:3],
-            'Title':"مقالات پر بحث ماه"
+            'Title':_("Most discussed articles of the month")
         }
 
 @register.inclusion_tag("blog/partials/sidebar.html")
@@ -51,7 +52,7 @@ def Rating_article():
     
     return {
         "articles": articles,
-        "Title": "مقالات پر امتیاز "
+        "Title": _("high score articles")
     }
 
 # @register.inclusion_tag("blog/partials/slide.html")
